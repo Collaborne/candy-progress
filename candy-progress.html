@@ -1,0 +1,181 @@
+<!doctype html>
+<link rel="import" href="../polymer/polymer.html">
+<!--
+
+### Example
+
+```html
+
+```
+
+@demo demo/index.html
+-->
+<dom-module id="candy-progress">
+	<template>
+		<style>
+			/* The animation explanation that the progress bar animation
+				 is based on can be find here: https://css-tricks.com/css3-progress-bars/ */
+			.meter {
+				height: var(--candy-progress-height);
+				width: var(--candy-progress-width);
+				max-width: 480px;
+				position: relative;
+				background: #ddd;
+				-moz-border-radius: 25px;
+				-webkit-border-radius: 25px;
+				border-radius: 25px;
+				margin-top: 8px;
+				padding: 2px;
+				box-shadow: inset 0 -1px 1px rgba(255,255,255,0.3);
+			}
+			.meter > span {
+				display: block;
+				height: 100%;
+				border-radius: 20px;
+				box-shadow:
+					inset 0 2px 9px  rgba(255,255,255,0.3),
+					inset 0 -2px 6px rgba(0,0,0,0.4);
+				position: relative;
+				overflow: hidden;
+			}
+			.color > span {
+				background-color: var(--candy-progress-color) ;
+				background-image: linear-gradient(to bottom, 	var(--candy-progress-color) , white);
+			}
+			.meter > span:after, .animate > span > span {
+				content: "";
+				position: absolute;
+				top: 0; left: 0; bottom: 0; right: 0;
+				background-image: linear-gradient(
+					-45deg,
+					rgba(255, 255, 255, .2) 25%,
+					transparent 25%,
+					transparent 50%,
+					rgba(255, 255, 255, .2) 50%,
+					rgba(255, 255, 255, .2) 75%,
+					transparent 75%,
+					transparent
+				);
+				z-index: 1;
+				background-size: 50px 50px;
+				animation: move 2s linear infinite;
+			}
+			@keyframes move {
+				0% {
+					background-position: 0 0;
+				}
+				100% {
+					background-position: 50px 50px;
+				}
+			}
+		</style>
+
+		<div class="meter color">
+			<span id="progressBar" data-value="0"><span></span></span>
+		</div>
+
+	</template>
+</dom-module>
+<script>
+	(function() {
+		CandlyProgress = Polymer({
+			is: 'candy-progress',
+			properties: {
+				// public variables
+				/**
+				 * Value that sets the bar fill explicitly, the value
+				 * is in percentage.
+				 * The value range should be 0-100.
+				 */
+				progress: {
+					type: Number
+				},
+				/**
+				 * If set to true the bar is going to fill repetitively.
+				 */
+				loop: {
+					type: Boolean,
+					value: false
+				},
+				/**
+				 * If set to true the bar is going to fill and stay filled.
+				 */
+				fill: {
+					type: Boolean,
+					value: false
+				},
+				speed: {
+					type: Number,
+					value: 50
+				},
+
+				// private variables
+				_intervalId: String,
+				_name: {
+					type: String
+				},
+				_normalizedSpeed: {
+					type: Number,
+					computed: '_normalizeSpeed(speed)'
+				}
+			},
+
+			/**
+			 * Once all the parameters are ready first see if the explicit value
+			 * is set. If it is set the progress fill to the percentage equal to the value.
+			 * In case it is not defined check if either fill or loop parameters are defined and
+			 * handle both cases.
+			 */
+			ready: function() {
+				// handle the explicit value case
+				if (this.progress) {
+					this.$.progressBar.style = `width: ${this.progress}%;`;
+				// handle fill or loop case
+				} else if (this.fill || this.loop) {
+					this._name = this._generateRandomId(25);
+					this.$.progressBar.id = this._name;
+					this._handleFillAndLoopCase();
+				}
+			},
+			/**
+			 * Sets an interval of execution and fills the progress bar. Once the bar is filled
+			 * either it restarts the progress bar (loop) or it stops the execution and remains full
+			 * (fill).
+			 */
+			_handleFillAndLoopCase: function(){
+				var _this = this;
+				let intervalId = window.setInterval(function (){
+					progress = parseInt(document.getElementById(`${_this._name}`).getAttribute('data-value'));
+					if (progress < 100) {
+						progress++;
+						document.getElementById(`${_this._name}`).style = `width: ${progress}%`;
+						parseInt(document.getElementById(`${_this._name}`).setAttribute('data-value', progress));
+					} else if (_this.fill) {
+						window.clearInterval(intervalId);
+					} else if (_this.loop) {
+						parseInt(document.getElementById(`${_this._name}`).setAttribute('data-value', 0));
+					}
+				}, this._normalizedSpeed);
+				this._intervalId = intervalId;
+			},
+			/**
+			 * Generates random string composed out of letters with the count equal
+			 * to length.
+			 *
+			 * @param length Number that represents character count of result
+			 */
+			_generateRandomId: function(length) {
+				var text = '';
+		 		var possible = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz';
+
+		 		for (let i = 0; i < length; i++ ) {
+					text += possible.charAt(Math.floor(Math.random() * possible.length));
+				}
+		 		return text;
+			},
+			_normalizeSpeed: function(speed) {
+				return speed ?  Math.abs(speed-99) : 25;
+			},
+		});
+	})();
+</script>
