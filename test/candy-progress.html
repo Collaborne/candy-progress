@@ -30,8 +30,25 @@
 						element = fixture('TrivialElement');
 					});
 
-					test('Check default state of the player', function() {
-						// TODO: 
+					test('Check default state of the progress bar', function() {
+						expect(element.loop).to.be.eql(false);
+						expect(element.speed).to.be.eql(50);
+						expect(element.fill).to.be.eql(false);
+					});
+				});
+				suite('Private functions testing', function() {
+					var element;
+
+					setup(function() {
+						element = fixture('TrivialElement');
+					});
+
+					test('Check speed normalization', function() {
+						expect(element._normalizeSpeed(70)).to.be.eql(29);
+					});
+					test('Check id generation', function() {
+						expect(element._generateRandomId(15).length).to.be.eql(15);
+					});
 				});
 			});
 		</script>
