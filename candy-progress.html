@@ -1,15 +1,27 @@
 <!doctype html>
 <link rel="import" href="../polymer/polymer.html">
+
 <!--
+Polymer element that creates candy progress bar.
+
+There are multiple behaviors implemented.
+- setting progress variable will manifest by changing the
+candy striping, according to the progress value (in percentage).
+- setting loop variable to true will result in candy striping
+repetetly filling the progress bar
+- setting fill variable to true will fill the progress bar and
+leave it filled
 
 ### Example
 
 ```html
-
+<candy-progress class="orange" loop></candy-progress>
+<candy-progress class="blue" progress="50"></candy-progress>
 ```
 
 @demo demo/index.html
 -->
+
 <dom-module id="candy-progress">
 	<template>
 		<style>
@@ -88,7 +100,8 @@
 				 * The value range should be 0-100.
 				 */
 				progress: {
-					type: Number
+					type: Number,
+					observer: '_onProgressChange'
 				},
 				/**
 				 * If set to true the bar is going to fill repetitively.
@@ -104,9 +117,13 @@
 					type: Boolean,
 					value: false
 				},
+				/**
+				 * Number represents the speed of bar filling. Fitting values are
+				 * 1 - 100, where 1 is the slowest and 100 the fastest.
+				 */
 				speed: {
 					type: Number,
-					value: 50
+					value: 75
 				},
 
 				// private variables
@@ -121,21 +138,25 @@
 			},
 
 			/**
-			 * Once all the parameters are ready first see if the explicit value
-			 * is set. If it is set the progress fill to the percentage equal to the value.
-			 * In case it is not defined check if either fill or loop parameters are defined and
+			 * Once all the parameters are ready see if
+			 * either fill or loop parameters are defined and
 			 * handle both cases.
 			 */
 			ready: function() {
-				// handle the explicit value case
-				if (this.progress) {
-					this.$.progressBar.style = `width: ${this.progress}%;`;
 				// handle fill or loop case
-				} else if (this.fill || this.loop) {
+				if (this.fill || this.loop) {
 					this._name = this._generateRandomId(25);
 					this.$.progressBar.id = this._name;
 					this._handleFillAndLoopCase();
 				}
+			},
+			/**
+			 * If the progress value changes handle the situation by setting the new value.
+			 *
+			 * @param progress Number the percentage of candy striping if the bar.
+			 */
+			_onProgressChange: function(progress) {
+				this.$.progressBar.style = `width: ${progress}%;`
 			},
 			/**
 			 * Sets an interval of execution and fills the progress bar. Once the bar is filled
@@ -173,8 +194,17 @@
 				}
 		 		return text;
 			},
+			/**
+			 * Normalizes speed of the bar filling. This is necessary so the user can
+			 * input intuitive values 1 slow, 100 fast. However, in the interval timing
+			 * executing every 100mls is the slowest execution. Therefore,
+			 * we need to normalize the values given from user.
+			 *
+			 * @param speed Number input from user that represent the intuitive speed
+			 *				of bar filling.
+			 */
 			_normalizeSpeed: function(speed) {
-				return speed ?  Math.abs(speed-99) : 25;
+				return speed ?  Math.abs(speed-100) : 25;
 			},
 		});
 	})();
