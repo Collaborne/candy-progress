@@ -6,18 +6,6 @@ Polymer element that creates candy progress bar.
 
 `bower install candy-progress --save`
 
-<!--
-```
-<custom-element-demo>
-  <template>
-    <link rel="import" href="candy-progress.html">
-    <next-code-block></next-code-block>
-    <next-code-block></next-code-block>
-  </template>
-</custom-element-demo>
-```
--->
-
 ## Usage
 
 Supported options:
@@ -31,11 +19,33 @@ Supported options:
 
 ## Example
 
+<!--
+```
+<custom-element-demo>
+  <template>
+    <link rel="import" href="candy-progress.html">
+    <next-code-block></next-code-block>
+  </template>
+</custom-element-demo>
+```
+-->
+
 ```html
 <candy-progress></candy-progress>
 ```
 
 ### Custom Styling
+
+<!--
+```
+<custom-element-demo>
+  <template>
+    <link rel="import" href="candy-progress.html">
+    <next-code-block></next-code-block>
+  </template>
+</custom-element-demo>
+```
+-->
 
 ```html
 <style is="custom-style">
