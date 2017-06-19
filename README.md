@@ -4,9 +4,55 @@ Polymer element that creates candy progress bar.
 
 ## Install
 
-~~~~
-bower install candy-progress --save
-~~~~
+`bower install candy-progress --save`
+
+<!--
+```
+<custom-element-demo>
+  <template>
+    <link rel="import" href="candy-progress.html">
+    <next-code-block></next-code-block>
+  </template>
+</custom-element-demo>
+```
+-->
+
+### Simple Elements
+
+```html
+<candy-progress></candy-progress>
+```
+
+### Custom Styling
+
+```html
+<style is="custom-style">
+    candy-progress {
+        --candy-progress-width: 100%;
+        --candy-progress-height: 20px;
+    }
+    candy-progress.red {
+        --candy-progress-color: #AC0000;
+        --candy-progress-secondary-color: #FF0000;
+    }
+    candy-progress.green {
+        --candy-progress-color: #006500;
+        --candy-progress-secondary-color: #1FD01F;
+    }
+    candy-progress.orange {
+        --candy-progress-color: #F48300;
+        --candy-progress-secondary-color: #FF8826;
+    }
+    candy-progress.blue {
+        --candy-progress-color: blue;
+        --candy-progress-secondary-color: white;
+    }
+</style>
+<candy-progress class="red" speed="35" fill></candy-progress>
+<candy-progress class="green" speed="70" loop></candy-progress>
+<candy-progress class="orange" loop></candy-progress>
+<candy-progress class="blue" progress="50"></candy-progress>
+```
 
 ## Usage
 
