@@ -12,12 +12,24 @@ Polymer element that creates candy progress bar.
   <template>
     <link rel="import" href="candy-progress.html">
     <next-code-block></next-code-block>
+    <next-code-block></next-code-block>
   </template>
 </custom-element-demo>
 ```
 -->
 
-### Simple Elements
+## Usage
+
+Supported options:
+
+| Option            | Description                                                                                                             |
+| ----------------- | ----------------------------------------------------------------------------------------------------------------------- |
+| **progress**      | Value that sets the bar fill explicitly, the value is in percentage (The range should be 0-100)                |
+| **loop**          | If set to true the bar is going to fill repetitively.                                                        |
+| **fill**          | If set to true the bar is going to fill and stay filled.                                                      |
+| **speed**         | Number represents the speed of bar filling (fitting values are 1 - 100, 1 the slowest and 100 the fastest) |
+
+## Example
 
 ```html
 <candy-progress></candy-progress>
@@ -50,26 +62,6 @@ Polymer element that creates candy progress bar.
 </style>
 <candy-progress class="red" speed="35" fill></candy-progress>
 <candy-progress class="green" speed="70" loop></candy-progress>
-<candy-progress class="orange" loop></candy-progress>
-<candy-progress class="blue" progress="50"></candy-progress>
-```
-
-## Usage
-
-Supported options:
-
-| Option            | Description                                                                                                             |
-| ----------------- | ----------------------------------------------------------------------------------------------------------------------- |
-| **progress**      | Value that sets the bar fill explicitly, the value is in percentage (The range should be 0-100)                |
-| **loop**          | If set to true the bar is going to fill repetitively.                                                        |
-| **fill**          | If set to true the bar is going to fill and stay filled.                                                      |
-| **speed**         | Number represents the speed of bar filling (fitting values are 1 - 100, 1 the slowest and 100 the fastest) |
-
-## Example
-
-To use the element in HTML:
-
-```html
 <candy-progress class="orange" loop></candy-progress>
 <candy-progress class="blue" progress="50"></candy-progress>
 ```
