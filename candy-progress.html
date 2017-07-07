@@ -1,5 +1,5 @@
 <!doctype html>
-<link rel="import" href="../polymer/polymer.html">
+<link rel="import" href="../polymer/polymer-element.html">
 
 <!--
 Polymer element that creates candy progress bar.
@@ -23,7 +23,9 @@ leave it filled
 -->
 
 <dom-module id="candy-progress">
+
 	<template>
+
 		<style>
 			/* The animation explanation that the progress bar animation
 				 is based on can be find here: https://css-tricks.com/css3-progress-bars/ */
@@ -83,129 +85,147 @@ leave it filled
 		</style>
 
 		<div class="meter color">
-			<span id="progressBar" data-value="0"><span></span></span>
+			<span id="progressBar" data-value="[[_progress]]"><span></span></span>
 		</div>
 
 	</template>
-</dom-module>
-<script>
-	(function() {
-		CandlyProgress = Polymer({
-			is: 'candy-progress',
-			properties: {
-				// public variables
-				/**
-				 * Value that sets the bar fill explicitly, the value
-				 * is in percentage.
-				 * The value range should be 0-100.
-				 */
-				progress: {
-					type: Number,
-					observer: '_onProgressChange'
-				},
-				/**
-				 * If set to true the bar is going to fill repetitively.
-				 */
-				loop: {
-					type: Boolean,
-					value: false
-				},
-				/**
-				 * If set to true the bar is going to fill and stay filled.
-				 */
-				fill: {
-					type: Boolean,
-					value: false
-				},
-				/**
-				 * Number represents the speed of bar filling. Fitting values are
-				 * 1 - 100, where 1 is the slowest and 100 the fastest.
-				 */
-				speed: {
-					type: Number,
-					value: 75
-				},
 
-				// private variables
-				_intervalId: String,
-				_name: {
-					type: String
-				},
-				_normalizedSpeed: {
-					type: Number,
-					computed: '_normalizeSpeed(speed)'
-				}
-			},
+	<script>
+
+		class CandyProgress extends Polymer.Element {
+
+			static get is() {
+				return 'candy-progress';
+			}
+
+			static get properties() {
+				return {
+					// public variables
+					/**
+					* Value that sets the bar fill explicitly, the value
+					* is in percentage.
+					* The value range should be 0-100.
+					*/
+					progress: {
+						type: Number,
+						observer: '_onProgressChange'
+					},
+					/**
+					* If set to true the bar is going to fill repetitively.
+					*/
+					loop: {
+						type: Boolean,
+						value: false
+					},
+					/**
+					* If set to true the bar is going to fill and stay filled.
+					*/
+					fill: {
+						type: Boolean,
+						value: false
+					},
+					/**
+					* Number represents the speed of bar filling. Fitting values are
+					* 1 - 100, where 1 is the slowest and 100 the fastest.
+					*/
+					speed: {
+						type: Number,
+						value: 75
+					},
+
+					// private variables
+					_intervalId: String,
+					_name: {
+						type: String
+					},
+					_normalizedSpeed: {
+						type: Number,
+						computed: '_normalizeSpeed(speed)'
+					},
+					_progress: {
+						type: Number,
+						value: 0,
+					},
+				};
+			}
 
 			/**
-			 * Once all the parameters are ready see if
-			 * either fill or loop parameters are defined and
-			 * handle both cases.
-			 */
-			ready: function() {
+			* Once all the parameters are ready see if
+			* either fill or loop parameters are defined and
+			* handle both cases.
+			*/
+			ready() {
+				super.ready();
+
 				// handle fill or loop case
 				if (this.fill || this.loop) {
 					this._name = this._generateRandomId(25);
 					this.$.progressBar.id = this._name;
 					this._handleFillAndLoopCase();
 				}
-			},
+			}
+
 			/**
-			 * If the progress value changes handle the situation by setting the new value.
-			 *
-			 * @param progress Number the percentage of candy striping if the bar.
-			 */
-			_onProgressChange: function(progress) {
+			* If the progress value changes handle the situation by setting the new value.
+			*
+			* @param progress Number the percentage of candy striping if the bar.
+			*/
+			_onProgressChange(progress) {
 				this.$.progressBar.style = `width: ${progress}%;`
-			},
+			}
+
 			/**
-			 * Sets an interval of execution and fills the progress bar. Once the bar is filled
-			 * either it restarts the progress bar (loop) or it stops the execution and remains full
-			 * (fill).
-			 */
-			_handleFillAndLoopCase: function(){
-				var _this = this;
-				let intervalId = window.setInterval(function (){
-					progress = parseInt(document.getElementById(`${_this._name}`).getAttribute('data-value'));
-					if (progress < 100) {
-						progress++;
-						document.getElementById(`${_this._name}`).style = `width: ${progress}%`;
-						parseInt(document.getElementById(`${_this._name}`).setAttribute('data-value', progress));
-					} else if (_this.fill) {
+			* Sets an interval of execution and fills the progress bar. Once the bar is filled
+			* either it restarts the progress bar (loop) or it stops the execution and remains full
+			* (fill).
+			*/
+			_handleFillAndLoopCase(){
+				const intervalId = window.setInterval(() => {
+					if (this._progress < 100) {
+						this._progress++;
+						this.$.progressBar.style = `width: ${this._progress}%`;
+					} else if (this.fill) {
 						window.clearInterval(intervalId);
-					} else if (_this.loop) {
-						parseInt(document.getElementById(`${_this._name}`).setAttribute('data-value', 0));
+					} else if (this.loop) {
+						this._progress = 0;
 					}
 				}, this._normalizedSpeed);
+				
 				this._intervalId = intervalId;
-			},
-			/**
-			 * Generates random string composed out of letters with the count equal
-			 * to length.
-			 *
-			 * @param length Number that represents character count of result
-			 */
-			_generateRandomId: function(length) {
-				var text = '';
-		 		var possible = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz';
+			}
 
-		 		for (let i = 0; i < length; i++ ) {
+			/**
+			* Generates random string composed out of letters with the count equal
+			* to length.
+			*
+			* @param length Number that represents character count of result
+			*/
+			_generateRandomId(length) {
+				var text = '';
+				var possible = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz';
+
+				for (let i = 0; i < length; i++ ) {
 					text += possible.charAt(Math.floor(Math.random() * possible.length));
 				}
-		 		return text;
-			},
+				return text;
+			}
+
 			/**
-			 * Normalizes speed of the bar filling. This is necessary so the user can
-			 * input intuitive values 1 slow, 100 fast. However, in the interval timing
-			 * executing every 100mls is the slowest execution. Therefore,
-			 * we need to normalize the values given from user.
-			 *
-			 * @param speed Number input from user that represent the intuitive speed
-			 *				of bar filling.
-			 */
-			_normalizeSpeed: function(speed) {
+			* Normalizes speed of the bar filling. This is necessary so the user can
+			* input intuitive values 1 slow, 100 fast. However, in the interval timing
+			* executing every 100mls is the slowest execution. Therefore,
+			* we need to normalize the values given from user.
+			*
+			* @param speed Number input from user that represent the intuitive speed
+			*				of bar filling.
+			*/
+			_normalizeSpeed(speed) {
 				return speed ?  Math.abs(speed-100) : 25;
-			},
-		});
-	})();
-</script>
+			}
+
+		}
+		customElements.define(CandyProgress.is, CandyProgress);
+
+	</script>
+
+</dom-module>

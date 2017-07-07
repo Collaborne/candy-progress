@@ -1,15 +1,62 @@
 <!doctype html>
 <html>
 	<head>
-		<meta charset="utf-8">
-		<meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1.0, user-scalable=yes">
-		<title>candy-progress</title>
-		<script src="../webcomponentsjs/webcomponents-lite.js"></script>
-		<link rel="import" href="../polymer/polymer.html">
-		<link rel="import" href="../iron-component-page/iron-component-page.html">
+		<title>Demo</title>
+		<script src="../../webcomponentsjs/webcomponents-lite.js"></script>
+		<link rel="import" href="../../iron-demo-helpers/demo-snippet.html">
+		<link rel="import" href="../../iron-demo-helpers/demo-pages-shared-styles.html">
+		<link rel="import" href="../../paper-button/paper-button.html">
+		<link rel="import" href="../../paper-checkbox/paper-checkbox.html">
+		<!-- @see https://github.com/PolymerElements/neon-animation/issues/226#issuecomment-290930385 -->
+		<link rel="import" href="../../neon-animation/web-animations.html">
+		<link rel="import" href="../paper-bottom-sheet.html">
+		<link rel="import" href="../paper-bottom-sheet-item.html">
 	</head>
 
 	<body>
-		<iron-component-page></iron-component-page>
+		<demo-snippet class="centered-demo">
+			<template>
+				<dom-bind>
+					<template>
+						<custom-style>
+							<style include="demo-pages-shared-styles"></style>
+						</custom-style>
+
+						<paper-bottom-sheet slide="{{sliding}}" modal="{{modalSheet}}" with-backdrop="[[withBackdrop]]" id="sheet">
+							<paper-bottom-sheet-item text="Star" icon="icons:star-border" on-tap="tapStar"></paper-bottom-sheet-item>
+							<paper-bottom-sheet-item text="Delete" icon="icons:delete" warning on-tap="tapDelete"></paper-bottom-sheet-item>
+						</paper-bottom-sheet>
+
+						<paper-checkbox checked="{{sliding}}">Slide in</paper-checkbox><br>
+						<paper-checkbox checked="{{modalSheet}}">Modal bottom sheet</paper-checkbox><br>
+						<paper-checkbox checked="{{withBackdrop}}">Open without backdrop</paper-checkbox><br>
+						<br>
+						<paper-button on-tap="openSheet" raised>Open</paper-button>
+
+						<script>
+							var scope = document.querySelector("dom-bind");
+							scope.withBackdrop = true;
+							scope.openSheet = function() {
+								this.$.sheet.open();
+							}
+
+							scope.tapStar = function() {
+								this.$.sheet.close();
+
+								alert("Starred");
+							}
+
+							scope.tapDelete = function() {
+								this.$.sheet.close();
+
+								alert("Deleted");
+							}
+						</script>
+
+					</template>
+				</dom-bind>
+			</template>
+		</demo-snippet>
+
 	</body>
 </html>

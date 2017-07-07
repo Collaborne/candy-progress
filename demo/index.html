@@ -1,0 +1,32 @@
+<!doctype html>
+<html>
+	<head>
+		<title>Demo</title>
+		<script src="../../webcomponentsjs/webcomponents-lite.js"></script>
+		<link rel="import" href="../../iron-demo-helpers/demo-snippet.html">
+		<link rel="import" href="../../iron-demo-helpers/demo-pages-shared-styles.html">
+		<link rel="import" href="../candy-progress.html">
+	</head>
+
+	<body>
+		<demo-snippet class="centered-demo">
+			<template>
+
+				<style>
+					candy-progress {
+						--candy-progress-width: 100%;
+						--candy-progress-height: 16px;
+					}
+					candy-progress.green {
+						--candy-progress-color: #006500;
+						--candy-progress-secondary-color: #1FD01F;
+					}
+				</style>
+				
+				<candy-progress class="green" speed="70" loop></candy-progress>
+
+			</template>
+		</demo-snippet>
+
+	</body>
+</html>
