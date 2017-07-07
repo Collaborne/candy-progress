@@ -2,6 +2,8 @@
 
 Polymer element that creates candy progress bar.
 
+This element is a native Polymer 2 element (ES6 class syntax). Use version 2.0.x for Polymer 2 hybrid mode.
+
 ## Install
 
 `bower install candy-progress --save`
