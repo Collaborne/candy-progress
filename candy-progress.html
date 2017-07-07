@@ -85,7 +85,7 @@ leave it filled
 		</style>
 
 		<div class="meter color">
-			<span id="progressBar" data-value="[[_progress]]"><span></span></span>
+			<span id="progressBar" data-value="[[progress]]"><span></span></span>
 		</div>
 
 	</template>
@@ -100,7 +100,6 @@ leave it filled
 
 			static get properties() {
 				return {
-					// public variables
 					/**
 					* Value that sets the bar fill explicitly, the value
 					* is in percentage.
@@ -108,8 +107,11 @@ leave it filled
 					*/
 					progress: {
 						type: Number,
-						observer: '_onProgressChange'
+						observer: '_onProgressChange',
+						value: 0,
+						notify: true,
 					},
+
 					/**
 					* If set to true the bar is going to fill repetitively.
 					*/
@@ -117,6 +119,7 @@ leave it filled
 						type: Boolean,
 						value: false
 					},
+
 					/**
 					* If set to true the bar is going to fill and stay filled.
 					*/
@@ -124,6 +127,7 @@ leave it filled
 						type: Boolean,
 						value: false
 					},
+
 					/**
 					* Number represents the speed of bar filling. Fitting values are
 					* 1 - 100, where 1 is the slowest and 100 the fastest.
@@ -133,18 +137,9 @@ leave it filled
 						value: 75
 					},
 
-					// private variables
-					_intervalId: String,
-					_name: {
-						type: String
-					},
 					_normalizedSpeed: {
 						type: Number,
 						computed: '_normalizeSpeed(speed)'
-					},
-					_progress: {
-						type: Number,
-						value: 0,
 					},
 				};
 			}
@@ -158,11 +153,7 @@ leave it filled
 				super.ready();
 
 				// handle fill or loop case
-				if (this.fill || this.loop) {
-					this._name = this._generateRandomId(25);
-					this.$.progressBar.id = this._name;
-					this._handleFillAndLoopCase();
-				}
+				this._handleFillAndLoopCase();
 			}
 
 			/**
@@ -179,35 +170,14 @@ leave it filled
 			* either it restarts the progress bar (loop) or it stops the execution and remains full
 			* (fill).
 			*/
-			_handleFillAndLoopCase(){
+			_handleFillAndLoopCase() {
 				const intervalId = window.setInterval(() => {
-					if (this._progress < 100) {
-						this._progress++;
-						this.$.progressBar.style = `width: ${this._progress}%`;
-					} else if (this.fill) {
-						window.clearInterval(intervalId);
+					if ((this.loop || this.fill) && this.progress < 100) {
+						this.progress++;
 					} else if (this.loop) {
-						this._progress = 0;
+						this.progress = 0;
 					}
 				}, this._normalizedSpeed);
-				
-				this._intervalId = intervalId;
-			}
-
-			/**
-			* Generates random string composed out of letters with the count equal
-			* to length.
-			*
-			* @param length Number that represents character count of result
-			*/
-			_generateRandomId(length) {
-				var text = '';
-				var possible = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz';
-
-				for (let i = 0; i < length; i++ ) {
-					text += possible.charAt(Math.floor(Math.random() * possible.length));
-				}
-				return text;
 			}
 
 			/**
@@ -220,7 +190,7 @@ leave it filled
 			*				of bar filling.
 			*/
 			_normalizeSpeed(speed) {
-				return speed ?  Math.abs(speed-100) : 25;
+				return speed ? Math.abs(speed - 100) : 25;
 			}
 
 		}

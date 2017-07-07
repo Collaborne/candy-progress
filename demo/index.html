@@ -5,26 +5,44 @@
 		<script src="../../webcomponentsjs/webcomponents-lite.js"></script>
 		<link rel="import" href="../../iron-demo-helpers/demo-snippet.html">
 		<link rel="import" href="../../iron-demo-helpers/demo-pages-shared-styles.html">
+		<link rel="import" href="../../paper-checkbox/paper-checkbox.html">
+		<link rel="import" href="../../paper-input/paper-input.html">
 		<link rel="import" href="../candy-progress.html">
 	</head>
 
 	<body>
 		<demo-snippet class="centered-demo">
 			<template>
+				<dom-bind>
 
-				<style>
-					candy-progress {
-						--candy-progress-width: 100%;
-						--candy-progress-height: 16px;
-					}
-					candy-progress.green {
-						--candy-progress-color: #006500;
-						--candy-progress-secondary-color: #1FD01F;
-					}
-				</style>
-				
-				<candy-progress class="green" speed="70" loop></candy-progress>
+					<style>
+						candy-progress {
+							--candy-progress-width: 100%;
+							--candy-progress-height: 20px;
+							--candy-progress-color: #006500;
+							--candy-progress-secondary-color: #1FD01F;
+						}
+					</style>
 
+					<template>
+						<candy-progress
+							progress="{{progress}}"
+							loop="[[loop]]"
+							fill="[[fill]]"
+						></candy-progress>
+
+						<paper-checkbox checked="{{loop}}">Loop</paper-checkbox>
+						<paper-checkbox checked="{{fill}}">Fill</paper-checkbox>
+						<paper-input label="progress" value="{{progress}}"></paper-input>
+					</template>
+
+					 <script>
+						var scope = document.querySelector("dom-bind");
+						scope.loop = true;
+						scope.fill = true;
+					</script>
+
+				</dom-bind>
 			</template>
 		</demo-snippet>
 
