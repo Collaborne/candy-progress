@@ -33,23 +33,6 @@ Supported options:
 -->
 
 ```html
-<candy-progress></candy-progress>
-```
-
-### Custom Styling
-
-<!--
-```
-<custom-element-demo>
-  <template>
-    <link rel="import" href="candy-progress.html">
-    <next-code-block></next-code-block>
-  </template>
-</custom-element-demo>
-```
--->
-
-```html
 <style is="custom-style">
     candy-progress {
         --candy-progress-width: 100%;
