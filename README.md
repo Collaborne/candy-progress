@@ -1,4 +1,4 @@
-# candy-progress  [![Bower version](https://badge.fury.io/bo/candy-progress.svg)](http://badge.fury.io/bo/candy-progress) [![Travis state](https://travis-ci.org/Collaborne/candy-progress.svg?branch=master)](https://travis-ci.org/Collaborne/candy-progress) [![Published on webcomponents.org](https://img.shields.io/badge/webcomponents.org-published-blue.svg)](https://www.webcomponents.org/element/Collaborne/candy-progress)
+# candy-progress  [![Bower version](https://badge.fury.io/bo/candy-progress.svg)](http://badge.fury.io/bo/candy-progress) [![Travis state](https://travis-ci.org/Collaborne/candy-progress.svg?branch=master)](https://travis-ci.org/Collaborne/candy-progress) [![Published on webcomponents.org](https://img.shields.io/badge/webcomponents.org-published-blue.svg)](https://www.webcomponents.org/element/Collaborne/candy-progress)![Vaadin Directory availability](https://img.shields.io/badge/Vaadin%20Directory-available-green.svg?style=flat-square&colorB=00b4f0&link=https://vaadin.com/directory)
 
 Polymer element that creates candy progress bar.
 
