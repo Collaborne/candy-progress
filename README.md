@@ -1,4 +1,6 @@
-# candy-progress  [![Bower version](https://badge.fury.io/bo/candy-progress.svg)](http://badge.fury.io/bo/candy-progress) [![Travis state](https://travis-ci.org/Collaborne/candy-progress.svg?branch=master)](https://travis-ci.org/Collaborne/candy-progress) [![Published on webcomponents.org](https://img.shields.io/badge/webcomponents.org-published-blue.svg)](https://www.webcomponents.org/element/Collaborne/candy-progress)
+# candy-progress  [![Bower version](https://badge.fury.io/bo/candy-progress.svg)](http://badge.fury.io/bo/candy-progress) [![Travis state](https://travis-ci.org/Collaborne/candy-progress.svg?branch=master)](https://travis-ci.org/Collaborne/candy-progress) [![Published on webcomponents.org](https://img.shields.io/badge/webcomponents.org-published-blue.svg)](https://www.webcomponents.org/element/Collaborne/candy-progress)  
+[![Published on Vaadin  Directory](https://img.shields.io/badge/Vaadin%20Directory-published-00b4f0.svg)](https://vaadin.com/directory/component/Collabornegoogle-analytics-tracker-behavior)
+[![Stars on vaadin.com/directory](https://img.shields.io/vaadin-directory/star/Collabornegoogle-analytics-tracker-behavior.svg)](https://vaadin.com/directory/component/Collabornegoogle-analytics-tracker-behavior)
 
 Polymer element that creates candy progress bar.
 
