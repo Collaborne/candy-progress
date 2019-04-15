@@ -6,7 +6,7 @@
   ],
   "homepage": "https://github.com/collaborne/candy-progress",
   "name": "@collaborne/candy-progress",
-  "version": "4.0.2",
+  "version": "5.0.0",
   "main": "dist/candy-progress.js",
   "types": "dist/candy-progress.d.ts",
   "author": "collaborne",
