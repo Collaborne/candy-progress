@@ -1,0 +1,47 @@
+{
+  "description": "A Material Design progress bar",
+  "keywords": [
+    "web-components",
+    "polymer"
+  ],
+  "homepage": "https://github.com/collaborne/candy-progress",
+  "name": "@collaborne/candy-progress",
+  "version": "4.0.2",
+  "main": "dist/candy-progress.js",
+  "types": "dist/candy-progress.d.ts",
+  "author": "collaborne",
+  "license": "Apache-2.0",
+  "bugs": {
+    "url": "https://github.com/Collaborne/candy-progress/issues"
+  },
+  "files": [
+    "dist"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Collaborne/candy-progress.git"
+  },
+  "scripts": {
+    "build": "node_modules/typescript/bin/tsc",
+    "lint": "tslint -c tslint.json \"src/**/*.ts\"",
+    "test": "npm run lint && echo 'No tests yet'",
+    "prepublish": "npm run lint && npm run build",
+    "start-dev": "node_modules/typescript/bin/tsc --watch & polymer serve"
+  },
+  "dependencies": {
+    "@polymer/polymer": "^3.1.0",
+    "lit-element": "^2.1.0"
+  },
+  "devDependencies": {
+    "@polymer/iron-component-page": "^4.0.0",
+    "@polymer/iron-demo-helpers": "^3.0.0",
+    "@polymer/paper-checkbox": "^3.1.0",
+    "@polymer/paper-input": "^3.0.2",
+    "@webcomponents/webcomponentsjs": "^2.2.7",
+    "polymer-cli": "^1.9.5",
+    "ts-node": "^8.0.3",
+    "tslint": "^5.14.0",
+    "tslint-config-collaborne": "^0.0.4",
+    "typescript": "^3.3.4000"
+  }
+}

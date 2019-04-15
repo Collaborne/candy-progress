@@ -2,19 +2,20 @@
 <html>
 	<head>
 		<title>Demo</title>
-		<script src="../../webcomponentsjs/webcomponents-lite.js"></script>
-		<link rel="import" href="../../iron-demo-helpers/demo-snippet.html">
-		<link rel="import" href="../../iron-demo-helpers/demo-pages-shared-styles.html">
-		<link rel="import" href="../../paper-checkbox/paper-checkbox.html">
-		<link rel="import" href="../../paper-input/paper-input.html">
-		<link rel="import" href="../candy-progress.html">
+		<script type="module">
+			import '@webcomponents/webcomponentsjs/webcomponents-loader';
+			import '@polymer/iron-demo-helpers/demo-pages-shared-styles';
+			import '@polymer/iron-demo-helpers/demo-snippet';
+			import '@polymer/paper-checkbox';
+			import '@polymer/paper-input/paper-input';
+			import '../dist/candy-progress';
+		</script>
 	</head>
 
 	<body>
 		<demo-snippet class="centered-demo">
 			<template>
 				<dom-bind>
-
 					<style>
 						candy-progress {
 							--candy-progress-width: 100%;
@@ -29,11 +30,20 @@
 							progress="{{progress}}"
 							loop="[[loop]]"
 							fill="[[fill]]"
+							speed="[[speed]]"
 						></candy-progress>
 
-						<paper-checkbox checked="{{loop}}">Loop</paper-checkbox>
-						<paper-checkbox checked="{{fill}}">Fill</paper-checkbox>
-						<paper-input label="Progress (in percent)" value="{{progress}}"></paper-input>
+						<div>
+							<paper-checkbox checked="{{loop}}">Loop</paper-checkbox>
+							<paper-checkbox checked="{{fill}}">Fill</paper-checkbox>
+						</div>
+						<br>
+						<div>
+							Progress (0-100): <input type="number" value="{{progress::input}}" min="0" max="100"></input>
+						</div>
+						<div>
+							Speed (0-100): <input type="number" value="{{speed::input}}" min="0" max="100"></input>
+						</div>
 					</template>
 
 					 <script>
@@ -41,7 +51,6 @@
 						scope.loop = true;
 						scope.fill = true;
 					</script>
-
 				</dom-bind>
 			</template>
 		</demo-snippet>
